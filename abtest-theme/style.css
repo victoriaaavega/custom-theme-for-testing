@@ -1,3 +1,11 @@
+/*
+Theme Name: AB Test Theme
+Description: Mi primer custom themeeeeeeeee
+Version: 1.0
+Author: Vicky
+*/
+
+/* Base styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,6 +17,7 @@ h1 {
     color: #333;
 }
 
+/* Debug info - remove in production */
 .debug-info {
     margin-top: 24px;
     padding: 16px 20px;
@@ -25,4 +34,24 @@ h1 {
 
 .debug-info code {
     color: #68d391;
+}
+
+/* Navbar */
+.navbar {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.navbar a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
 }
