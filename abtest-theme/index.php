@@ -1,6 +1,4 @@
 <?php
-$startTime = microtime(true);
-
 require_once get_template_directory() . '/includes/ExperimentRunner.php';
 
 $database = new Database();
@@ -41,9 +39,9 @@ $navbarSource  = $navbarExperiment['source'];
 
     <nav class="navbar">
         <?php if ($navbarVariant === 'control'): ?>
-            <a href="#">Log in</a>
+            <a href="#" id="navbar-cta">Log in</a>
         <?php else: ?>
-            <a href="#">Sign up for free!!</a>
+            <a href="#" id="navbar-cta">Sign up for free!</a>
         <?php endif; ?>
     </nav>
 
@@ -53,13 +51,36 @@ $navbarSource  = $navbarExperiment['source'];
         <p>Experiment Navbar → Variant: <code><?php echo $navbarVariant; ?></code> | Source: <code><?php echo $navbarSource; ?></code></p>
     </div>
 
+    <script>
+        window.abTestData = {
+            visitorId: "<?php echo esc_js($visitorId); ?>",
+            apiUrl: "<?php echo esc_js(rest_url('abtest/v1/event')); ?>",
+            nonce: "<?php echo esc_js(wp_create_nonce('wp_rest')); ?>",
+            experiments: {
+                experiment_hero: "<?php echo esc_js($heroVariant); ?>",
+                experiment_navbar: "<?php echo esc_js($navbarVariant); ?>"
+            }
+        };
+
+        window.abTestConfig = [
+            {
+                experimentId: "experiment_hero",
+                selector: ".hero-button",
+                eventName: "hero_cta_click",
+                type: "click"
+            },
+            {
+                experimentId: "experiment_navbar",
+                selector: "#navbar-cta",
+                eventName: "navbar_cta_click",
+                type: "click"
+            }
+        ];
+    </script>
+
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/heap-sync.js"></script>
 
-    <?php
-    $endTime = microtime(true);
-    echo '<p style="color:black;padding:10px;">';
-    echo 'Total: '          . round(($endTime - $startTime) * 1000) . 'ms<br>';
-    ?>
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/event-tracker.js"></script>
 
 </body>
 </html>
